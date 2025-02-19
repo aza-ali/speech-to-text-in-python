@@ -31,6 +31,12 @@ Follow these steps to set up and use the script with file saving.
 
     **Run this in your terminal, not in Python.**
 
+2. Download FFmpeg:
+
+Go to the official FFmpeg download page: FFmpeg Downloads.
+Under the "Windows" section, download the build from gyan.dev (or another trusted source).
+Choose the Static build for Windows.
+
 ### Usage
 
 1.  **Save the Script:** Save the Python code as `speech_to_text.py`.
