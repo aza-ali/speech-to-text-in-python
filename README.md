@@ -49,10 +49,10 @@ Follow these steps to get the script up and running on your local machine.
         return result["text"]
     ```
 
-3.  **Call the Function with Your Audio File Path:**  Provide the path to your audio file to the `transcribe_with_whisper` function.  **Ensure the audio file path is correct and accessible by the script.**
+3.  **Call the Function with Your Audio File Path:**  Provide the path to your audio file to the `transcribe_with_whisper` function.  **Make sure to replace `"path/to/your/audio/file.wav"` with the actual path to your audio file on your system.**
 
     ```python
-    audio_path = r"C:\Users\rtx11\Downloads\News Round Up.wav"  # Replace with your audio file path
+    audio_path = r"path/to/your/audio/file.wav"  # **REPLACE THIS with your audio file path!**
     transcribe_with_whisper(audio_path)
     ```
 
