@@ -36,6 +36,32 @@ Follow these steps to set up and use the script with file saving.
 Go to the official FFmpeg download page: FFmpeg Downloads.
 Under the "Windows" section, download the build from gyan.dev (or another trusted source).
 Choose the Static build for Windows.
+Extract the ZIP file:
+
+Once downloaded, extract the ZIP file to a folder (e.g., C:\ffmpeg).
+Add FFmpeg to the System PATH:
+
+Open the Command Prompt and run the following command to open the System Properties window:
+
+Copy
+Edit
+sysdm.cpl
+Click on the Advanced tab, then click Environment Variables.
+
+In the System variables section, find and select the Path variable, then click Edit.
+
+In the Edit window, click New, and then enter the path to the bin folder inside the extracted FFmpeg directory (e.g., C:\ffmpeg\bin).
+
+Click OK to save the changes.
+
+Verify Installation:
+
+Close and reopen the Command Prompt, and then run:
+
+nginx
+Copy
+Edit
+ffmpeg -version
 
 ### Usage
 
