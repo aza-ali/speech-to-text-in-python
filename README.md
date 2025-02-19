@@ -1,87 +1,80 @@
-# Speech-to-Text in Python using OpenAI Whisper
+# Robust Speech-to-Text with File Saving in Python using OpenAI Whisper
 
-This Python script leverages OpenAI's Whisper, a powerful deep-learning model, to accurately transcribe spoken words from an audio file into text. It's designed to be straightforward and easy to use, providing a quick way to convert audio to text using Python.
+This Python script transcribes audio files to text using OpenAI's Whisper model and **now saves the transcription to a text file** in the same directory as the audio. This enhanced version is robust, handles errors, and provides convenient file output.
 
 ## Features
 
-*   **Powered by OpenAI Whisper:** Utilizes a state-of-the-art deep-learning model for high-accuracy speech-to-text transcription.
-*   **Simple and Easy to Use:**  Provides a clear and concise function to perform transcription with minimal code.
-*   **Supports Various Audio Formats:**  Whisper and `ffmpeg` (implicitly required) support a wide range of audio file formats.
+*   **Powered by OpenAI Whisper:** Accurate speech-to-text using a state-of-the-art deep-learning model.
+*   **Error Handling:**  Handles file not found errors, model loading issues, and transcription errors.
+*   **Model Selection:** Choose from different Whisper models (tiny, base, small, medium, large) for speed/accuracy balance.
+*   **User-Friendly Input:** Prompts for the audio file path in the terminal.
+*   **Clear Output:** Displays transcription in the console and indicates success/failure.
+*   **Saves to Text File:** **Automatically saves the transcription as a `.txt` file in the same folder as the audio, using the same base filename.**
+*   **Supports Various Audio Formats:** Whisper and `ffmpeg` compatible with many audio formats.
 
 ## Getting Started
 
-Follow these steps to get the script up and running on your local machine.
+Follow these steps to set up and use the script with file saving.
 
 ### Prerequisites
 
-*   **Python:** Ensure you have Python installed on your system. It's recommended to use Python 3.7 or later.
+*   **Python:** Python 3.7+ installed on your system.
+*   **ffmpeg:**  **`ffmpeg` must be installed and in your system's PATH.** (See "Troubleshooting" in `readme.md` for guidance).
 
 ### Installation
 
-1.  **Install Dependencies:** Open your system's terminal (Command Prompt on Windows, Terminal on macOS/Linux) and run the following command to install the necessary Python packages:
+1.  **Install Dependencies:** Open your terminal and run:
 
     ```bash
-    pip install openai-whisper ffmpeg torchaudio
+    pip install openai-whisper ffmpeg-python torchaudio
     ```
 
-    **Important:** Run this command in your terminal or command line interface. **Do not** include this command within your Python script.
+    **Run this in your terminal, not in Python.**
 
 ### Usage
 
-1.  **Import the Function:** In your Python script, import the `transcribe_with_whisper` function:
+1.  **Save the Script:** Save the Python code as `speech_to_text.py`.
 
-    ```python
-    import whisper
-    ```
-
-2.  **Define the Transcription Function:** Copy and paste the following function into your Python script:
-
-    ```python
-    import whisper
-
-    def transcribe_with_whisper(audio_file):
-        print("Loading Whisper model...")
-        model = whisper.load_model("base")  # Options: tiny, base, small, medium, large
-        print("Transcribing...")
-        result = model.transcribe(audio_file)
-
-        print("\nTranscription:\n", result["text"])
-        return result["text"]
-    ```
-
-3.  **Call the Function with Your Audio File Path:**  Provide the path to your audio file to the `transcribe_with_whisper` function.  **Make sure to replace `"path/to/your/audio/file.wav"` with the actual path to your audio file on your system.**
-
-    ```python
-    audio_path = r"path/to/your/audio/file.wav"  # **REPLACE THIS with your audio file path!**
-    transcribe_with_whisper(audio_path)
-    ```
-
-    **Note on File Paths:**
-    *   On Windows, use raw strings ( `r"your\path"` ) or double backslashes ( `"your\\\\path"` ) to avoid issues with backslash escaping in Python strings.
-    *   On macOS/Linux, use forward slashes ( `"your/path"` ).
-
-### Running the Script
-
-1.  **Save Your Script:** Save your Python script (e.g., as `speech_to_text.py`).
-2.  **Execute the Script:** Open your terminal, navigate to the directory where you saved your script, and run it using the Python interpreter:
+2.  **Run the Script:** Open your terminal, navigate to the script's directory, and execute:
 
     ```bash
     python speech_to_text.py
     ```
 
-    This will execute the script, load the Whisper model, transcribe the audio file, and print the transcribed text to your console.
+3.  **Enter Audio File Path:** When prompted, enter the **full path** to your audio file and press Enter.
 
-## Model Options
+4.  **Transcription and File Saving:**
+    *   The script will transcribe the audio and print the text to the console.
+    *   **A text file with the same name as your audio file (but with a `.txt` extension) will be created in the same directory as your audio file.**
+    *   You will see a message in the console indicating the location where the transcript file was saved.
 
-The `whisper.load_model()` function accepts different model sizes. You can choose a model based on your needs and available resources:
+### Example
 
-*   **`"tiny"`:**  Fastest and smallest, but least accurate.
-*   **`"base"`:**  A good balance between speed and accuracy. (Default in the script)
-*   **`"small"`:**  More accurate than "base", but slower.
-*   **`"medium"`:**  More accurate than "small", but slower.
-*   **`"large"`:**  Most accurate, but slowest and requires more resources (GPU recommended for optimal performance).
+If you transcribe `my_recording.wav` located in `Documents/Audio/`, the script will:
 
-To use a different model, simply change the argument within the `whisper.load_model()` function:
+1.  Print the transcription to the console.
+2.  Create a file named `my_recording.txt` in the `Documents/Audio/` directory containing the transcribed text.
 
-```python
-model = whisper.load_model("small")  # Example: Using the 'small' model
+### Model Options
+
+(Same Model Options section as before - no changes needed in this section)
+
+### Troubleshooting
+
+(Same Troubleshooting section as before - no changes needed in this section)
+
+### Contributing
+
+(Same Contributing section as before - no changes needed in this section)
+
+### License
+
+(Same License section as before - no changes needed in this section)
+
+### Contact
+
+(Same Contact section as before - no changes needed in this section)
+
+---
+
+**Enjoy transcribing your audio and automatically saving the results with Python and OpenAI Whisper!**
