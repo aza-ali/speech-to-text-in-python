@@ -1,4 +1,4 @@
-Goal: Transcribe audio to text using Python and OpenAI's Whisper, saving the transcript to a file.
+Goal: Transcribe audio to text using Python using local processing without sending sensitive data to the cloud.
 
 Key Features:
 
