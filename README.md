@@ -16,8 +16,9 @@ Quick Setup:
 
 2. Installation:
 * Open Terminal/Command Prompt.
+* Run:
 ```bash
-Run: pip install openai-whisper ffmpeg-python torchaudio
+pip install openai-whisper ffmpeg-python torchaudio
 ```
 FFmpeg Install (Windows - If needed):
 * Download: From [FFmpeg website link] (Gyan.dev builds recommended). Get the static ZIP for Windows.
@@ -48,9 +49,10 @@ def transcribe_with_whisper(audio_file):
 audio_path = r"C:\Users\rtx11\Downloads\News Round Up.wav"  # Corrected path
 transcribe_with_whisper(audio_path)
 ```
-* Run script: Open terminal, navigate to script folder (cd ...), run
+* Open terminal, navigate to script folder (cd ...),
+* Run
 ```bash
-python speech_to_text.py.
+python speech_to_text.py
 ```
 * Enter audio path: When prompted, paste/type your audio file path and press Enter.
 * Output: Transcription text in terminal and saved as audio_file_name.txt in the same folder as audio.
