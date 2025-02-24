@@ -1,4 +1,4 @@
-Goal: Transcribe audio to text using Python using local processing without sending sensitive data to the cloud.
+Goal: Transcribe audio to text using local processing without sending sensitive data to the cloud.
 
 Key Features:
 
