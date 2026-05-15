@@ -1,115 +1,98 @@
-Goal: Transcribe audio to text using local processing without sending sensitive data to the cloud.
+# Speech to Text in Python
 
-Key Features:
+[![Python](https://img.shields.io/badge/python-3.7+-blue?style=flat-square&logo=python&logoColor=white)](https://python.org)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
+[![Whisper](https://img.shields.io/badge/Whisper-OpenAI-412991?style=flat-square&logo=openai&logoColor=white)](https://github.com/openai/whisper)
 
-Accurate: OpenAI Whisper powered transcription.
-Robust: Error handling for common issues.
-Flexible: Model choice for speed/accuracy.
-Simple: Terminal input for audio file path.
-Automatic: Saves transcript to a .txt file.
-Versatile: Wide audio format support (via ffmpeg).
-Quick Setup:
+Local audio transcription with OpenAI Whisper. No API keys, no cloud, no data leaving your machine.
 
-1. Prerequisites:
-* Python: Install Python 3.7+ from python.org.
-* FFmpeg:  Crucial for audio processing. See "FFmpeg Install (Windows)" below if needed.
+## Why
 
-2. Installation:
-* Open Terminal/Command Prompt.
-* Run:
+You have an audio file you want transcribed. The usual options:
+
+- **OpenAI / AssemblyAI / Deepgram APIs** - fast, accurate, but your audio goes to a server.
+- **macOS dictation / Otter.ai** - also cloud.
+- **This** - Whisper running entirely on your machine. Sensitive audio (interviews, medical notes, legal recordings) never leaves.
+
+## Requirements
+
+- Python 3.7+
+- FFmpeg (for audio decoding)
+- ~1-10 GB disk space depending on which Whisper model you load
+
+## Install
+
 ```bash
 pip install openai-whisper ffmpeg-python torchaudio
 ```
-FFmpeg Install (Windows - If needed):
-* Download: From [FFmpeg website link] (Gyan.dev builds recommended). Get the static ZIP for Windows.
-* Extract: To a folder (e.g., C:\ffmpeg).
-* Add to PATH:
-* Win + R, type sysdm.cpl, Enter.
-* Advanced tab -> Environment Variables.
-* Under "System variables," find and edit "Path."
-* Add a "New" entry:  Path to your ffmpeg\bin folder (e.g., C:\ffmpeg\bin).
-* OK all windows to save.
-* Verify: Open new terminal, run ffmpeg -version. Should show version info.
 
-3. Usage:
-* Save script: Save the Python code as speech_to_text.py.
+Install FFmpeg if you don't have it:
+
 ```bash
-import whisper
-import os
+# macOS
+brew install ffmpeg
 
-# Function to load the model and handle errors
-def load_model():
-    try:
-        model = whisper.load_model("base")  # You can change to "small", "medium", or "large"
-        return model
-    except Exception as e:
-        print(f"Error loading the model: {e}")
-        return None
+# Ubuntu / Debian
+sudo apt install ffmpeg
 
-# Function to transcribe audio
-def transcribe_audio(model, audio_path):
-    if not os.path.exists(audio_path):
-        print("Error: Audio file does not exist.")
-        return None
-
-    try:
-        # Perform transcription
-        result = model.transcribe(audio_path)
-        return result['text']
-    except Exception as e:
-        print(f"Error transcribing audio: {e}")
-        return None
-
-# Main code execution
-def main():
-    # Load the Whisper model
-    model = load_model()
-
-    if model:
-        # Path to the audio file
-        audio_path = r"C:\Users\rtx11\Downloads\newsroundup.wav"  # Update with your actual audio file path
-        
-        # Transcribe the audio
-        transcription = transcribe_audio(model, audio_path)
-        
-        if transcription:
-            print("Transcription: ", transcription)
-        else:
-            print("Transcription failed.")
-    else:
-        print("Failed to load Whisper model.")
-
-# Run the main function
-if __name__ == "__main__":
-    main()
+# Windows (with Chocolatey)
+choco install ffmpeg
 ```
-* Open terminal, navigate to script folder (cd ...),
-* Run
+
+Verify:
+
 ```bash
-python speech_to_text.py
+ffmpeg -version
 ```
-* Enter audio path: When prompted, paste/type your audio file path and press Enter.
-* Output: Transcription text in terminal and saved as audio_file_name.txt in the same folder as audio.
 
-4. Example:
-* Audio file: voice_note.wav in Downloads folder.
-* Run script, enter path (adjust username): C:\Users\YourUsername\Downloads\voice_note.wav
-* Transcript: voice_note.txt in Downloads folder.
+## Usage
 
-5. Model Options (Edit Script for Change):
-* "tiny": Fastest, least accurate.
-* "base": Default, balanced speed/accuracy.
-* "small": Higher accuracy, slower.
-* "medium": Even higher accuracy, slower.
-* "large": Highest accuracy, slowest, needs more resources.
-* To change: Edit speech_to_text.py, find model_name="base" in transcribe_with_whisper function, change "base" to your desired model (e.g., "small").
+Edit `text-to-speech.py` to point at your audio file:
 
-6. Troubleshooting (Common Issues):
-* FFmpeg errors:
-* Re-install FFmpeg, check PATH setup, restart terminal, verify with ffmpeg -version.
-* FileNotFoundError:
-* Check audio path spelling, capitalization, file exists at path, use absolute paths.
-* Model loading errors:
-* Internet needed for first model download, ensure connection, check disk space.
-* Poor accuracy:
-* Improve audio quality (less noise), try larger Whisper model, consider language/technical vocabulary limitations.
+```python
+audio_path = "/path/to/your/audio.wav"
+```
+
+Then run:
+
+```bash
+python text-to-speech.py
+```
+
+Output: transcript printed to terminal and saved as a `.txt` file alongside the audio.
+
+## Models
+
+| Model | Speed | Accuracy | RAM |
+|---|---|---|---|
+| `tiny` | Fastest | Lowest | ~1 GB |
+| `base` | Fast | Good | ~1 GB |
+| `small` | Medium | Better | ~2 GB |
+| `medium` | Slow | Better | ~5 GB |
+| `large` | Slowest | Best | ~10 GB |
+
+Change the model in the script:
+
+```python
+model = whisper.load_model("small")  # or "base", "medium", "large"
+```
+
+The first time you load a model, Whisper downloads it from the OpenAI CDN.
+
+## Supported Audio Formats
+
+Anything FFmpeg can decode: WAV, MP3, M4A, FLAC, OGG, AAC, WMA, etc.
+
+## Troubleshooting
+
+**FFmpeg errors** - verify the install with `ffmpeg -version`. On Windows, make sure `C:\ffmpeg\bin` is in your PATH.
+
+**`FileNotFoundError`** - use an absolute path to the audio file. Check for typos in the filename.
+
+**Model download fails** - first run requires internet to fetch the model. Check disk space too (models range from ~150 MB to ~3 GB).
+
+**Poor accuracy** - try a larger model. Accuracy on noisy or accented audio scales heavily with model size. The `large` model handles non-English audio much better than `base`.
+
+## License
+
+MIT
